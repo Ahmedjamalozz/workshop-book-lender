@@ -8,7 +8,7 @@ public class Person {
     private int id;
     private String firstName;
     private String lastName;
-    private String[] bookBorrowed = new String[0];
+    private Book[] borrowedBooks = new Book[0];
 
     public Person(String firstName, String lastName) {
         this.id = getNextId();
@@ -48,21 +48,41 @@ public class Person {
 
     public void loanBook(Book book) {
         if (book.isAvailable()){
-            bookBorrowed = Arrays.copyOf(bookBorrowed, bookBorrowed.length+1);
-            bookBorrowed[bookBorrowed.length-1] = book.getTitle();
+            borrowedBooks = Arrays.copyOf(borrowedBooks, borrowedBooks.length+1);
+            borrowedBooks[borrowedBooks.length-1] = book;
             book.setBorrower(this);
         }
     }
 
 
-    public void returnBook(Book book) {
-        if (!book.isAvailable())
-        for (String book.getTitle() : this.bookBorrowed)
+    public void returnBook(Book book) { // book2
+        if (book == null) throw new IllegalArgumentException("BOok should not be null.");
+        int index = -1; // 1
+        for (int i = 0; i < borrowedBooks.length; i++) { // [book1,book2,book3 ]
+            if (borrowedBooks[i].getId().equals(book.getId())) {
+                index = i;
+                break;
+            }
+        }
+
+        if (index == -1) {
+            throw new IllegalArgumentException("Book data does not found.");
+        } else {
+            Book[] newArrays = Arrays.copyOf(borrowedBooks, borrowedBooks.length - 1);// [null,null ]
+            for (int i = 0; i < borrowedBooks.length; i++) { // [book1,book2,book3 ]
+                if (i == index) continue;
+                newArrays[i] = borrowedBooks[i];// [book1,book2 ]
+            }
+            borrowedBooks = newArrays;
+            book.setBorrower(null);
+        }
+
+
     }
     //check if book is available
     //if not available then
 
     public String getPersonInformation() {
-        return "Person: " + getFirstName() + " " + getLastName() + ", Id:" + getId();
+        return "Person: " + getFirstName() + " " + getLastName() + ", Id:" + getId() + ", BorrowedBooks.length: " + borrowedBooks.length;
     }
 }

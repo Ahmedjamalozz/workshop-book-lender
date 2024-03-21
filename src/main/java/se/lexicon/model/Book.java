@@ -14,11 +14,13 @@ public class Book {
         this.id = generateBookId();
         setTitle(title);
         setAuthor(author);
+        this.available = true;
     }
 
     public Book(String title, String author, Person borrower) {
         this(title, author);
         this.borrower = borrower;
+        this.available = false;
     }
 
     public void setAuthor(String author) {
@@ -35,7 +37,7 @@ public class Book {
         this.title = title;
     }
 
-    public void setBorrower(Person borrower){
+    public void setBorrower(Person borrower) {
         this.borrower = borrower;
     }
 
@@ -47,7 +49,7 @@ public class Book {
         return author;
     }
 
-    public String getId(){
+    public String getId() {
         return this.id;
     }
 
@@ -64,10 +66,16 @@ public class Book {
     }
 
     public String getBookInformation() {
-        return "Book: " + getTitle() +
-                ", Author: " + getAuthor() +
+        String result = "Book: " + getTitle() +
                 ", Id: " + getId() +
-                ", Is Available: " + isAvailable() +
-                ", Borrower: " + borrower.getFirstName() + " " + borrower.getLastName();
+                ", Is Available: " + isAvailable();
+        if (borrower == null) {
+            result += ", Borrower: not borrowed";
+        } else {
+            result += ", Borrower: " + borrower.getFirstName() + " " + borrower.getLastName();
+        }
+
+        return result;
+
     }
 }
