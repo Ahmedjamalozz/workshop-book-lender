@@ -1,26 +1,16 @@
 package se.lexicon;
 
 
+import se.lexicon.model.Book;
+import se.lexicon.model.Person;
+
 public class App {
     public static void main(String[] args) {
-        // todo: needs completion
+        Person erik = new Person("Erik", "Lengyel");
+        System.out.println(erik.getPersonInformation());
 
-        // Create a book instance
-        // Display book information
-
-        // Create a person instance
-        // Display person information
-
-        // Loan a book to the person
-
-        // Display person information after borrowing a book
-        // Display book information after borrowing a book
-
-        // Return the borrowed book
-
-        // Display person information after returning the book
-        // Display book information after borrowing a book
-
+        Book javaFullStack = new Book("Java Full Stack", "Mehrdad Javan", erik);
+        System.out.println(javaFullStack.getBookInformation());
     }
 
 }
